@@ -1,0 +1,17 @@
+Customer Receipt
+=================
+Name: asdfghj
+Phone: dfghytre
+Age: rtyui76543
+Customer ID: 3456787654
+
+Items Ordered:
+Burger x1 - PKR 300
+Burger x1 - PKR 300
+Burger x1 - PKR 300
+Burger x5 - PKR 1500
+Cold Drink x5 - PKR 250
+Cold Drink x5 - PKR 250
+
+Total Bill: PKR 2900
+Thank you for dining with us!

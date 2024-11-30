@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class RestaurantBillingSystem extends JFrame {
+
     private JTextField customerNameField, customerPhoneField, customerAgeField, customerIdField;
     private JTextArea receiptArea;
     private DefaultListModel<String> orderListModel;
@@ -14,7 +15,7 @@ public class RestaurantBillingSystem extends JFrame {
     public RestaurantBillingSystem() {
         // Set JFrame properties
         setTitle("Restaurant Billing System");
-        setSize(1000, 750);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(20, 20)); // Add spacing between components
@@ -26,23 +27,27 @@ public class RestaurantBillingSystem extends JFrame {
         Color bgColor = new Color(245, 245, 245); // Light gray background
         Color accentColor = new Color(30, 144, 255); // Dodger blue for highlights
         Color buttonColor = new Color(0, 123, 255); // Bright blue for buttons
+        Color buttonTextColor = Color.WHITE; // White text for the button
+        Color inputBorderColor = new Color(200, 200, 200); // Light border for input fields
 
         getContentPane().setBackground(bgColor);
 
         // Title Panel
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(bgColor);
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Top padding
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20)); // Add spacing
         JLabel titleLabel = new JLabel("Restaurant Billing System");
-        titleLabel.setFont(titleFont);
+        titleLabel.setFont(titleFont); // Apply the font here
         titleLabel.setForeground(accentColor);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center align the title
         titlePanel.add(titleLabel);
         add(titlePanel, BorderLayout.NORTH);
 
         // Customer Information Panel
-        JPanel customerPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel customerPanel = new JPanel(new GridLayout(4, 2, 15, 15)); // Increased spacing
         customerPanel.setBackground(Color.WHITE);
         customerPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(accentColor, 2), "Customer Information", 0, 0, labelFont, accentColor));
+        customerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Added padding inside the section
 
         customerNameField = createStyledTextField();
         customerPhoneField = createStyledTextField();
@@ -59,12 +64,12 @@ public class RestaurantBillingSystem extends JFrame {
         customerPanel.add(customerIdField);
 
         // Menu and Order Panel
-        JPanel menuPanel = new JPanel(new BorderLayout(20, 20));
+        JPanel menuPanel = new JPanel(new BorderLayout(20, 20)); // Add spacing between sections
         menuPanel.setBackground(Color.WHITE);
         menuPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(accentColor, 2), "Menu and Orders", 0, 0, labelFont, accentColor));
 
         // Menu Selection Panel
-        JPanel menuSelectionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
+        JPanel menuSelectionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15)); // Increased spacing
         menuSelectionPanel.setBackground(Color.WHITE);
 
         String[] menuItems = {
@@ -77,7 +82,7 @@ public class RestaurantBillingSystem extends JFrame {
         quantitySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
         quantitySpinner.setFont(labelFont);
 
-        JButton addButton = createStyledButton("Add to Order", buttonColor, Color.WHITE, buttonFont);
+        JButton addButton = createStyledButton("Add to Order", buttonColor, buttonTextColor, buttonFont);
         menuSelectionPanel.add(createStyledLabel("Menu Item:"));
         menuSelectionPanel.add(menuDropdown);
         menuSelectionPanel.add(createStyledLabel("Quantity:"));
@@ -96,7 +101,7 @@ public class RestaurantBillingSystem extends JFrame {
         menuPanel.add(orderScrollPane, BorderLayout.CENTER);
 
         // Receipt and Buttons Panel
-        JPanel receiptPanel = new JPanel(new BorderLayout(10, 10));
+        JPanel receiptPanel = new JPanel(new BorderLayout(10, 10)); // Added spacing
         receiptPanel.setBackground(Color.WHITE);
         receiptPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(accentColor, 2), "Receipt and Actions", 0, 0, labelFont, accentColor));
 
@@ -106,10 +111,10 @@ public class RestaurantBillingSystem extends JFrame {
         receiptArea.setBorder(BorderFactory.createLineBorder(accentColor, 1));
         JScrollPane receiptScrollPane = new JScrollPane(receiptArea);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Increased button spacing
         buttonPanel.setBackground(Color.WHITE);
 
-        JButton generateReceiptButton = createStyledButton("Generate Receipt", buttonColor, Color.WHITE, buttonFont);
+        JButton generateReceiptButton = createStyledButton("Generate Receipt", buttonColor, buttonTextColor, buttonFont);
         JButton clearButton = createStyledButton("Clear", new Color(220, 53, 69), Color.WHITE, buttonFont);
         JButton exitButton = createStyledButton("Exit", Color.GRAY, Color.WHITE, buttonFont);
 
@@ -121,9 +126,9 @@ public class RestaurantBillingSystem extends JFrame {
         receiptPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         // Add Panels to Frame
-        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
+        JPanel mainPanel = new JPanel(new BorderLayout(20, 20)); // Add spacing between main panels
         mainPanel.setBackground(bgColor);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add outer spacing
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); // Add spacing to the edges
         mainPanel.add(customerPanel, BorderLayout.NORTH);
         mainPanel.add(menuPanel, BorderLayout.CENTER);
         mainPanel.add(receiptPanel, BorderLayout.SOUTH);
@@ -143,6 +148,8 @@ public class RestaurantBillingSystem extends JFrame {
     private JLabel createStyledLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        label.setForeground(Color.DARK_GRAY);
+        label.setPreferredSize(new Dimension(150, 30)); // Added space between label and input field
         return label;
     }
 
@@ -150,6 +157,8 @@ public class RestaurantBillingSystem extends JFrame {
         JTextField textField = new JTextField();
         textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
         textField.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        textField.setPreferredSize(new Dimension(200, 30)); // Set width
+        textField.setMargin(new Insets(5, 5, 5, 5)); // Add space inside input fields
         return textField;
     }
 
@@ -160,11 +169,13 @@ public class RestaurantBillingSystem extends JFrame {
         button.setForeground(fgColor);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(bgColor.darker(), 1));
+        button.setPreferredSize(new Dimension(150, 40)); // Set button size
+        button.setOpaque(true);  // Make sure the button background color is applied
         return button;
     }
 
     private void addToOrder() {
-        String selectedItem = (String) menuDropdown.getSelectedItem();
+        String selectedItem = menuDropdown.getSelectedItem().toString();
         int quantity = (int) quantitySpinner.getValue();
 
         String[] itemParts = selectedItem.split(" - PKR ");

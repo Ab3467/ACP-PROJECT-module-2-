@@ -1,18 +1,12 @@
 Customer Receipt
 =================
-Name: Ahmad
-Phone: 0987654
-Age: 21
-Customer ID: 123
+Name: rt6543
+Phone: 3456765
+Age: 3245677
+Customer ID: 345678765
 
 Items Ordered:
-Juices x2 - PKR 300
-French Fries x3 - PKR 300
-French Fries x3 - PKR 300
-French Fries x3 - PKR 300
-French Fries x3 - PKR 300
-French Fries x3 - PKR 300
-French Fries x3 - PKR 300
+Burger x1 - PKR 300
 
-Total Bill: PKR 2100
+Total Bill: PKR 300
 Thank you for your purchase!
