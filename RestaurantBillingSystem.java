@@ -190,52 +190,51 @@ public class RestaurantBillingSystem extends JFrame {
     private void generateReceipt() {
         if (customerNameField.getText().isEmpty() || customerPhoneField.getText().isEmpty() ||
                 customerAgeField.getText().isEmpty() || customerIdField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill out all customer information.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please fill all customer details!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        if (orderListModel.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No items in the order.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
+    
+        String customerName = customerNameField.getText();
+        String customerPhone = customerPhoneField.getText();
+        String customerAge = customerAgeField.getText();
+        String customerId = customerIdField.getText();
+    
         StringBuilder receipt = new StringBuilder();
-        receipt.append("Customer Receipt\n");
-        receipt.append("=================\n");
-        receipt.append("Name: ").append(customerNameField.getText()).append("\n");
-        receipt.append("Phone: ").append(customerPhoneField.getText()).append("\n");
+        receipt.append("======== Receipt ========\n");
+        receipt.append("Customer Name: ").append(customerNameField.getText()).append("\n");
+        receipt.append("Phone Number: ").append(customerPhoneField.getText()).append("\n");
         receipt.append("Age: ").append(customerAgeField.getText()).append("\n");
-        receipt.append("Customer ID: ").append(customerIdField.getText()).append("\n\n");
-        receipt.append("Items Ordered:\n");
-
+        receipt.append("Customer ID: ").append(customerIdField.getText()).append("\n");
+        receipt.append("\n---- Order Summary ----\n");
+    
         for (int i = 0; i < orderListModel.size(); i++) {
             receipt.append(orderListModel.getElementAt(i)).append("\n");
         }
-
+    
         receipt.append("\nTotal Bill: PKR ").append(totalBill).append("\n");
-        receipt.append("Thank you for your purchase!");
-
+        receipt.append("========================\n");
+    
         receiptArea.setText(receipt.toString());
-
-        try (FileWriter writer = new FileWriter("CustomerBill.txt")) {
+    
+        try (FileWriter writer = new FileWriter("receipt.txt")) {
             writer.write(receipt.toString());
-            JOptionPane.showMessageDialog(this, "Receipt saved to CustomerBill.txt.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Receipt saved to receipt.txt!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving receipt: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     private void clearForm() {
         customerNameField.setText("");
         customerPhoneField.setText("");
         customerAgeField.setText("");
         customerIdField.setText("");
-        receiptArea.setText("");
         orderListModel.clear();
+        receiptArea.setText("");
         totalBill = 0;
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(RestaurantBillingSystem::new);
     }
-}
+}    
