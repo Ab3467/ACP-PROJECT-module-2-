@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 public class RestaurantBillingSystem extends JFrame {
 
@@ -34,11 +33,10 @@ public class RestaurantBillingSystem extends JFrame {
         // Title Panel
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(bgColor);
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20)); // Add spacing
         JLabel titleLabel = new JLabel("Restaurant Billing System");
-        titleLabel.setFont(titleFont); // Apply the font here
+        titleLabel.setFont(titleFont);
         titleLabel.setForeground(accentColor);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center align the title
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(titleLabel);
         add(titlePanel, BorderLayout.NORTH);
 
@@ -46,7 +44,6 @@ public class RestaurantBillingSystem extends JFrame {
         JPanel customerPanel = new JPanel(new GridLayout(4, 2, 15, 15)); // Increased spacing
         customerPanel.setBackground(Color.WHITE);
         customerPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(accentColor, 2), "Customer Information", 0, 0, labelFont, accentColor));
-        customerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Added padding inside the section
 
         customerNameField = createStyledTextField();
         customerPhoneField = createStyledTextField();
@@ -148,16 +145,12 @@ public class RestaurantBillingSystem extends JFrame {
         JLabel label = new JLabel(text);
         label.setFont(new Font("SansSerif", Font.PLAIN, 16));
         label.setForeground(Color.DARK_GRAY);
-        label.setPreferredSize(new Dimension(150, 30)); // Added space between label and input field
         return label;
     }
 
     private JTextField createStyledTextField() {
         JTextField textField = new JTextField();
         textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        textField.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        textField.setPreferredSize(new Dimension(200, 30)); // Set width
-        textField.setMargin(new Insets(5, 5, 5, 5)); // Add space inside input fields
         return textField;
     }
 
@@ -166,64 +159,24 @@ public class RestaurantBillingSystem extends JFrame {
         button.setFont(font);
         button.setBackground(bgColor);
         button.setForeground(fgColor);
-        button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createLineBorder(bgColor.darker(), 1));
-        button.setPreferredSize(new Dimension(150, 40)); // Set button size
-        button.setOpaque(true);  // Make sure the button background color is applied
         return button;
     }
 
     private void addToOrder() {
         String selectedItem = menuDropdown.getSelectedItem().toString();
         int quantity = (int) quantitySpinner.getValue();
-
         String[] itemParts = selectedItem.split(" - PKR ");
-        String itemName = itemParts[0];
-        int itemPrice = Integer.parseInt(itemParts[1]);
-
-        int totalItemPrice = itemPrice * quantity;
-        totalBill += totalItemPrice;
-
-        orderListModel.addElement(itemName + " x" + quantity + " - PKR " + totalItemPrice);
+        int price = Integer.parseInt(itemParts[1]) * quantity;
+        orderListModel.addElement(itemParts[0] + " x" + quantity + " - PKR " + price);
+        totalBill += price;
     }
 
     private void generateReceipt() {
-        if (customerNameField.getText().isEmpty() || customerPhoneField.getText().isEmpty() ||
-                customerAgeField.getText().isEmpty() || customerIdField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill all customer details!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-    
-        String customerName = customerNameField.getText();
-        String customerPhone = customerPhoneField.getText();
-        String customerAge = customerAgeField.getText();
-        String customerId = customerIdField.getText();
-    
-        StringBuilder receipt = new StringBuilder();
-        receipt.append("======== Receipt ========\n");
-        receipt.append("Customer Name: ").append(customerNameField.getText()).append("\n");
-        receipt.append("Phone Number: ").append(customerPhoneField.getText()).append("\n");
-        receipt.append("Age: ").append(customerAgeField.getText()).append("\n");
-        receipt.append("Customer ID: ").append(customerIdField.getText()).append("\n");
-        receipt.append("\n---- Order Summary ----\n");
-    
-        for (int i = 0; i < orderListModel.size(); i++) {
-            receipt.append(orderListModel.getElementAt(i)).append("\n");
-        }
-    
-        receipt.append("\nTotal Bill: PKR ").append(totalBill).append("\n");
-        receipt.append("========================\n");
-    
-        receiptArea.setText(receipt.toString());
-    
-        try (FileWriter writer = new FileWriter("receipt.txt")) {
-            writer.write(receipt.toString());
-            JOptionPane.showMessageDialog(this, "Receipt saved to receipt.txt!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error saving receipt: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        String receipt = "Customer Name: " + customerNameField.getText() + "\n"
+                + "Total Bill: PKR " + totalBill + "\nThank you for dining with us!";
+        receiptArea.setText(receipt);
     }
-    
+
     private void clearForm() {
         customerNameField.setText("");
         customerPhoneField.setText("");
@@ -233,8 +186,8 @@ public class RestaurantBillingSystem extends JFrame {
         receiptArea.setText("");
         totalBill = 0;
     }
-    
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(RestaurantBillingSystem::new);
+        new RestaurantBillingSystem();
     }
-}    
+}
