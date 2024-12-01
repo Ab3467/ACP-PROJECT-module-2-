@@ -28,7 +28,6 @@ public class RestaurantBillingSystem extends JFrame {
         Color accentColor = new Color(30, 144, 255); // Dodger blue for highlights
         Color buttonColor = new Color(0, 123, 255); // Bright blue for buttons
         Color buttonTextColor = Color.WHITE; // White text for the button
-        Color inputBorderColor = new Color(200, 200, 200); // Light border for input fields
 
         getContentPane().setBackground(bgColor);
 
