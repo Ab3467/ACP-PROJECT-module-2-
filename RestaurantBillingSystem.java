@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class RestaurantBillingSystem extends JFrame {
 
@@ -26,7 +28,7 @@ public class RestaurantBillingSystem extends JFrame {
         Color bgColor = new Color(245, 245, 245); // Light gray background
         Color accentColor = new Color(30, 144, 255); // Dodger blue for highlights
         Color buttonColor = new Color(0, 123, 255); // Bright blue for buttons
-        Color buttonTextColor = Color.WHITE; // White text for the button
+        Color buttonTextColor = Color.BLACK; // White text for the button
 
         getContentPane().setBackground(bgColor);
 
@@ -111,8 +113,8 @@ public class RestaurantBillingSystem extends JFrame {
         buttonPanel.setBackground(Color.WHITE);
 
         JButton generateReceiptButton = createStyledButton("Generate Receipt", buttonColor, buttonTextColor, buttonFont);
-        JButton clearButton = createStyledButton("Clear", new Color(220, 53, 69), Color.WHITE, buttonFont);
-        JButton exitButton = createStyledButton("Exit", Color.GRAY, Color.WHITE, buttonFont);
+        JButton clearButton = createStyledButton("Clear", new Color(220, 53, 69), Color.BLACK, buttonFont);
+        JButton exitButton = createStyledButton("Exit", Color.GRAY, Color.BLACK, buttonFont);
 
         buttonPanel.add(generateReceiptButton);
         buttonPanel.add(clearButton);
@@ -173,8 +175,26 @@ public class RestaurantBillingSystem extends JFrame {
 
     private void generateReceipt() {
         String receipt = "Customer Name: " + customerNameField.getText() + "\n"
+                + customerAgeField.getText() + "\n" + customerIdField.getText() 
                 + "Total Bill: PKR " + totalBill + "\nThank you for dining with us!";
+
         receiptArea.setText(receipt);
+        saveReceiptToFile(receipt);  // Save receipt to file
+    }
+
+    private void saveReceiptToFile(String receiptContent) {
+        try {
+            File receiptFile = new File("receipt.txt");  // File to save the receipt
+            if (!receiptFile.exists()) {
+                receiptFile.createNewFile();  // Create the file if it doesn't exist
+            }
+            FileWriter writer = new FileWriter(receiptFile, true);  // Open file in append mode
+            writer.write(receiptContent + "\n\n");  // Write the receipt content
+            writer.close();  // Close the file
+            JOptionPane.showMessageDialog(this, "Receipt saved to receipt.txt", "Receipt Saved", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving receipt: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void clearForm() {

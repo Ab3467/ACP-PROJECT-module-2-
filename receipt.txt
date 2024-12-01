@@ -10,3 +10,11 @@ Cold Drink x6 - PKR 300
 
 Total Bill: PKR 600
 ========================
+Customer Name: ahmad abu bakr
+Total Bill: PKR 600
+Thank you for dining with us!
+
+Customer Name: AHmad abu bakr
+Total Bill: PKR 900
+Thank you for dining with us!
+
